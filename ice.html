@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* Your existing styles here */
+
+body, html {
+    height: 100%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #38444d;
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+.intro {
+  background-color: lightgrey;
+  width: auto;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+  text-align:center;
+  font-size:40px;
+}
+ .footer {
+      background-color: #38444d;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .footer-section {
+      flex: 1;
+      margin: 10px;
+    }
+
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+    }
+
+    .footer-icons {
+      margin-top: 10px;
+    }
+
+    .footer-icons i {
+      margin: 0 10px;
+      color: white;
+      font-size: 24px;
+    }
+
+    .footer-icons i:hover {
+      color: #ff6347; /* Change color on hover */
+    }
+
+    .copyright {
+      text-align: center;
+      padding: 10px;
+      background-color: #333;
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-section {
+        margin: 0;
+      }
+    }
+/* Cart Modal Styles */
+        #cartModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a href="index.html"><img src="images/pizza.jpg" width="20px" height="20px"></a></li>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="about.html">About</a></li>
+  <li><a href="contact.html">Contact</a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">Menu</a>
+    <div class="dropdown-content">
+      <a href="fresh.html">Fresh juice</a>
+      <a href="ice.html">Icecream</a>
+    </div>
+  </li>
+  <li style="float:right;">
+        <a href="javascript:void(0)" id="cartIcon" onclick="toggleCart()">
+            <i class="fa fa-shopping-cart" style="font-size:24px;"></i>
+            <span id="cartCount" style="color: white; margin-left: 5px;">0</span>
+        </a>
+    </li>
+</ul>
+
+<br><br>
+<div class="intro">
+	Available Fresh Juice
+</div>
+
+<!-- Search Input -->
+<div style="text-align:center; margin-bottom: 20px;">
+    <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Search for juices.." style="width: 300px; padding: 10px;">
+</div>
+
+<br><br>
+<div class="grid-container" id="gridContainer">
+  <div>
+	<div class="card">
+		<img src="images/i1.jpg" alt="Juice" style="width:100%">
+		<h1>Mint Icecream</h1>
+		<p class="price">$2.99</p>
+		<p>afsafgegree rtretretetr</p>
+		<p><button>Add to Cart</button></p>
+	</div>
+  </div>
+  <div>
+	<div class="card">
+		<img src="images/i2.jpg" alt="Juice" style="width:100%">
+		<h1>Orange Juice</h1>
+		<p class="price">$2.99</p>
+		<p>afsafgegre ertretretetr</p>
+		<p><button>Add to Cart</button></p>
+	</div>
+  </div>
+  <div>
+	<div class="card">
+		<img src="images/i1.jpg" alt="Juice" style="width:100%">
+		<h1>Banana Juice</h1>
+		<p class="price">$2.99</p>
+		<p>afsafgegree rtretretetr</p>
+		<p><button>Add to Cart</button></p>
+	</div>
+  </div>  
+  <div>
+	<div class="card">
+		<img src="images/i2.jpg" alt="Juice" style="width:100%">
+		<h1>Apple Juice</h1>
+		<p class="price">$2.99</p>
+		<p>afsafgegre ertretretetr</p>
+		<p><button>Add to Cart</button></p>
+	</div>
+  </div>
+  <div>
+	<div class="card">
+		<img src="images/j1.jpg" alt="Juice" style="width:100%">
+		<h1>Grape Juice</h1>
+		<p class="price">$2.99</p>
+		<p>afsafgegre ertretretetr</p>
+		<p><button>Add to Cart</button></p>
+	</div>
+  </div>
+  <div>
+	<div class="card">
+		<img src="images/j1.jpg" alt="Juice" style="width:100%">
+		<h1>Pineapple Juice</h1>
+		<p class="price">$2.99</p>
+		<p>afsafgegree rtretretetr</p>
+		<p><button>Add to Cart</button></p>
+	</div>
+  </div>  
+</div>
+<br><br>
+<div class="footer">
+  <div class="footer-section">
+    <h3>About Us</h3>
+    <p>We provide the best products and services to make your life better.</p>
+  </div>
+  <div class="footer-section">
+    <h3>Contact Us</h3>
+    <p>Email: info@example.com</p>
+    <p>Phone: +123 456 789</p>
+  </div>
+  <div class="footer-section footer-icons">
+    <h3>Follow Us</h3>
+    <a href="#"><i class="fa fa-facebook-official"></i></a>
+    <a href="#"><i class="fa fa-linkedin-square"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+  </div>
+</div>
+
+<div class="copyright">
+  &copy; 2024 My Website. All rights reserved.
+</div>
+
+<script>
+// JavaScript function to filter products based on search input
+function filterProducts() {
+    // Get the value of the input field
+    let input = document.getElementById('searchInput');
+    let filter = input.value.toLowerCase();
+    let gridContainer = document.getElementById('gridContainer');
+    let cards = gridContainer.getElementsByClassName('card');
+
+    // Loop through all cards and hide those that don't match the search query
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByTagName('h1')[0].textContent.toLowerCase();
+        if (title.includes(filter)) {
+            cards[i].parentElement.style.display = ""; // Show card
+        } else {
+            cards[i].parentElement.style.display = "none"; // Hide card
+        }
+    }
+}
+</script>
+<script>
+// Cart functionality
+let cart = []; // Array to hold cart items
+let cartCount = 0;
+
+// Function to add items to the cart
+function addToCart(itemName, itemPrice) {
+    cart.push({ name: itemName, price: itemPrice });
+    cartCount++;
+    updateCartCount();
+    updateCartDisplay();
+}
+
+// Function to update the cart count displayed on the cart icon
+function updateCartCount() {
+    document.getElementById('cartCount').innerText = cartCount;
+}
+
+// Function to display cart items
+function updateCartDisplay() {
+    const cartItemsDiv = document.getElementById('cartItems');
+    cartItemsDiv.innerHTML = ''; // Clear previous items
+    let totalPrice = 0;
+
+    // Create cart items list
+    cart.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.innerText = `${item.name} - $${item.price.toFixed(2)}`;
+        cartItemsDiv.appendChild(itemDiv);
+        totalPrice += item.price; // Calculate total price
+    });
+
+    // Update total price display
+    document.getElementById('totalPrice').innerText = `$${totalPrice.toFixed(2)}`;
+}
+
+// Function to toggle the cart display
+function toggleCart() {
+    const cartModal = document.getElementById('cartModal');
+    cartModal.style.display = (cartModal.style.display === 'none') ? 'block' : 'none';
+}
+
+// Function to close the cart modal
+function closeCart() {
+    document.getElementById('cartModal').style.display = 'none';
+}
+
+// Example of how to link addToCart function to buttons
+document.querySelectorAll('.card button').forEach(button => {
+    button.addEventListener('click', function() {
+        const itemName = this.parentElement.previousElementSibling.previousElementSibling.innerText; // Get item name
+        const itemPrice = parseFloat(this.parentElement.previousElementSibling.innerText.replace('$', '')); // Get item price
+        addToCart(itemName, itemPrice); // Call addToCart with name and price
+    });
+});
+</script>
+
+</body>
+</html>
